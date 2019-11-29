@@ -16,11 +16,11 @@ html{
     display: block;
 }
 
-.header{
+#header{
     text-align: center;
     margin: 0 auto;
 }
-.creator{
+#creator{
     text-align: center;
     margin: 0 auto;
 }

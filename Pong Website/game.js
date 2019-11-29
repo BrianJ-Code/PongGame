@@ -1,6 +1,8 @@
 const gamespace = document.getElementById("gamespace");
 const ctx = gamespace.getContext('2d');
 ctx.fillStyle = "black";
+const boop = new Audio('beep.wav');
+const bounce = new Audio('bounce.mp3');
 
 let p1 = {
     x: 30,
@@ -20,8 +22,8 @@ let ball = {
     rad: 10,
 };
 
-let p1score = 0;
 let p2score = 0;
+let p1score = 0;
 let xvelocity = -5;
 let yvelocity = 0;
 
@@ -36,11 +38,25 @@ function startgame () {
     p1relative = Math.abs(p1.x - ball.x + ball.rad);
     p2relative = Math.abs((p2.x - p2.width) - ball.x + ball.rad);
    
-    if(ball.y < 0 || ball.y > 900){
+    if(ball.y <= 0 || ball.y >= 900){
+        bounce.play();
         yvelocity = -yvelocity;
     }else if(ball.y + ball.rad >= p1.y && ball.y - ball.rad <= p1.y + 150 && p1relative == 0 || ball.y + ball.rad >= p2.y && ball.y - ball.rad <= p2.y + 150 && p2relative == 0){
+        bounce.play();
         xvelocity = -xvelocity;
         yvelocity = -(Math.floor(Math.random() * 10) + 1);
+    }else if(ball.x <= 0){
+        boop.play();
+        ball.x = 925
+        ball.y = 450
+        p2score += 1;
+        document.getElementById("p2score").innerHTML = "Player 2 Score:" + p2score;
+    }else if(ball.x >= 1850){
+        boop.play();
+        ball.x = 925
+        ball.y = 450
+        p1score += 1;
+        document.getElementById("p1score").innerHTML = "Player 1 Score:" + p1score;
     }
 
     ball.x += xvelocity;
