@@ -24,3 +24,10 @@ html{
     text-align: center;
     margin: 0 auto;
 }
+.Scores{
+    display: flex;
+    margin: 5 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

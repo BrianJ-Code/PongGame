@@ -4,7 +4,7 @@ ctx.fillStyle = "black";
 
 let p1 = {
     x: 30,
-    y: 350,
+    y: 375,
     width: 10,
     length: 150,
 };
@@ -20,47 +20,81 @@ let ball = {
     rad: 10,
 };
 
-function ballmechanic () {
+let p1score = 0;
+let p2score = 0;
+let xvelocity = -5;
+let yvelocity = 0;
+
+function startgame () {
+    requestAnimationFrame(startgame);
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.rad, 0, 2 * Math.PI);
     ctx.fill();
-    //console.log(ball.x);
-    //console.log(gamespace.width);
 
-    if(ball.y = 0 || 755){
-        //his the wall -> bounce off 
-    }else if(ball.x = 0 || gamespace.width){
-        //hits the end goal -> +1 scoreboard
-    }else{
-        //within an empty space continue in the same linear path
+    p1relative = Math.abs(p1.x - ball.x + ball.rad);
+    p2relative = Math.abs((p2.x - p2.width) - ball.x + ball.rad);
+   
+    if(ball.y < 0 || ball.y > 900){
+        yvelocity = -yvelocity;
+    }else if(ball.y + ball.rad >= p1.y && ball.y - ball.rad <= p1.y + 150 && p1relative == 0 || ball.y + ball.rad >= p2.y && ball.y - ball.rad <= p2.y + 150 && p2relative == 0){
+        xvelocity = -xvelocity;
+        yvelocity = -(Math.floor(Math.random() * 10) + 1);
     }
-}
-ballmechanic();
 
-ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
-ctx.fillRect(p2.x, p2.y, p2.width, p2.length);
+    ball.x += xvelocity;
+    ball.y += yvelocity;
 
-document.onkeydown = (event) => {
-    switch(event.keyCode){
-        case 87:
-            ctx.clearRect(p1.x, p1.y, p1.width, p1.length);
-            p1.y -= 10; //platform velocity
-            if (p1.y < 0){
-                p1.y = 0; 
-                ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
-            }else{
-                ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
-            }
-        break;
-        case 83:
-            ctx.clearRect(p1.x, p1.y, p1.width, p1.length);
-            p1.y += 10;
-            if (p1.y > 755){
-                p1.y = 755;
-                ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
-            }else{
-                ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
-            }
-    }
+    ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
+    ctx.fillRect(p2.x, p2.y, p2.width, p2.length);
+
+    document.onkeydown = (event) => {
+        switch(event.keyCode){
+            case 87:
+                ctx.clearRect(p1.x, p1.y, p1.width, p1.length);
+                p1.y -= 20; //platform velocity
+                if (p1.y < 0){
+                    p1.y = 0; 
+                    ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
+                }else{
+                    ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
+                }
+                break;
+            case 83:
+                ctx.clearRect(p1.x, p1.y, p1.width, p1.length);
+                p1.y += 20;
+                if (p1.y > 755){
+                    p1.y = 755;
+                    ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
+                }else{
+                    ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
+                }
+                break;
+            case 219:
+                ctx.clearRect(p2.x, p2.y, p2.width, p2.length);
+                p2.y -= 20;
+                if (p2.y < 0){
+                    p2.y = 0;
+                    ctx.fillRect(p2.x, p2.y, p2.width, p2.length);
+                }else{
+                    ctx.fillRect(p2.x, p2.y, p2.width, p2.length);
+                }
+                break;
+            case 222:
+                ctx.clearRect(p2.x, p2.y, p2.width, p2.length);
+                p2.y += 20;
+                if (p2.y > 755){
+                    p2.y = 755;
+                    ctx.fillRect(p2.x, p2.y, p2.width, p2.length);
+                }else{
+                    ctx.fillRect(p2.x, p2.y, p2.width, p2.length);
+                }
+                break;
+        }
+    }   
 }
+startgame();
+
+
 
