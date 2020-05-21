@@ -87,7 +87,7 @@ function startgame () {
                     ctx.fillRect(p1.x, p1.y, p1.width, p1.length);
                 }
                 break;
-            case 24:
+            case 39:
                 ctx.clearRect(p2.x, p2.y, p2.width, p2.length);
                 p2.y -= 20;
                 if (p2.y < 0){
@@ -97,7 +97,7 @@ function startgame () {
                     ctx.fillRect(p2.x, p2.y, p2.width, p2.length);
                 }
                 break;
-            case 25:
+            case 40:
                 ctx.clearRect(p2.x, p2.y, p2.width, p2.length);
                 p2.y += 20;
                 if (p2.y > 755){
